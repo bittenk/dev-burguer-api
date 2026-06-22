@@ -22,21 +22,21 @@ module.exports = {
         allwNull: false,
       },
       admin: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN(),
         defaultValue: false,
       },
       created_at: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATE(),
         allowNull: false,
       },
       updated_at: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATE(),
         allowNull: false,
       },
     });
   },
 
   async down(queryInterface) {
-     await queryInterface.dropTable('users');
+    await queryInterface.dropTable('users');
   },
 };

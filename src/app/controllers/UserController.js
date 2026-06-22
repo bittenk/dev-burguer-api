@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import * as Yup from 'yup';
 import { v4 } from 'uuid';
+import * as Yup from 'yup';
 import User from '../models/User.js';
 
 

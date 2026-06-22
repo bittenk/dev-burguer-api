@@ -1,38 +1,34 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Product extends Model {
+class Category extends Model {
   static init(sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
-        price: Sequelize.INTEGER,
         path: Sequelize.STRING,
-        offer: Sequelize.BOOLEAN,
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `http://localhost:3001/product-file/${this.path}`;
+            return `http://localhost:3001/category-file/${this.path}`;
           },
+        },
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
         },
       },
       {
         sequelize,
-        tableName: 'products',
+        tableName: 'categories',
       },
     );
 
     return this;
   }
-
-  static associate(models) {
-    this.belongsTo(models.Category, {
-      foreignKey: 'category_id',
-      as: 'category',
-    });
-  }
 }
 
-export default Product;
+export default Category;
 
 // campo Virtual
 
