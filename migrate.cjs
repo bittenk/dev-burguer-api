@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 
 // URI exata copiada do seu painel do Supabase (Transaction Pooler - Porta 6543)
-const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require';
+const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421@aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 

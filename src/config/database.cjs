@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   production: {
-    url: 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require',
+    url: 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421@aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require',
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
