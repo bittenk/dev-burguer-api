@@ -15,18 +15,16 @@ module.exports = {
     },
   },
   production: {
-    username: 'postgres.blpepzffhxptiyntdhsx',
+    username: 'postgres',
     password: 'Erk300163150421.',
     database: 'postgres',
-    host: 'aws-0-us-east-1.pooler.supabase.com',
-    port: 6543, // Mantemos a porta estável do pooler
+    host: 'db.blpepzffhxptiyntdhsx.supabase.co', // Conexão direta
+    port: 5432,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false,
-        // CRUCIAL: Força o driver pg a enviar o SNI para o pooler identificar o tenant
-        servername: 'aws-0-us-east-1.pooler.supabase.com',
       },
     },
     define: {

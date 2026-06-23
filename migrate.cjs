@@ -1,13 +1,11 @@
 const { Client } = require('pg');
-const fs = require('fs');
-const path = require('path');
 
-// Configuração direta usando as credenciais que funcionam
+// Conexão Direta ao Banco (Bypassa o Pooler que está rejeitando o tenant)
 const client = new Client({
-    user: 'postgres.blpepzffhxptiyntdhsx',
+    user: 'postgres', // Usuário padrão limpo (sem ponto)
     password: 'Erk300163150421.',
-    host: 'aws-0-us-east-1.pooler.supabase.com',
-    port: 6543,
+    host: 'db.blpepzffhxptiyntdhsx.supabase.co', // Host de conexão direta do seu projeto
+    port: 5432, // Porta padrão estável
     database: 'postgres',
     ssl: {
         require: true,
@@ -17,16 +15,14 @@ const client = new Client({
 
 async function run() {
     try {
-        console.log('🚀 Conectando diretamente ao Supabase via driver PG nativo...');
+        console.log('🚀 Conectando via Conexão DIRETA (db.blpepzffhxptiyntdhsx.supabase.co)...');
         await client.connect();
-        console.log('✅ Conexão estabelecida com sucesso!');
+        console.log('✅ Conexão direta estabelecida com sucesso!');
 
-        // Como o CLI do sequelize está quebrado, criamos a tabela de controle manualmente se não existir
+        // Garante a tabela do Sequelize de forma nativa
         await client.query(`CREATE TABLE IF NOT EXISTS "SequelizeMeta" (name VARCHAR(255) NOT NULL PRIMARY KEY);`);
 
-        // Aqui você pode rodar queries SQL direto se o CLI travar de vez, 
-        // mas vamos apenas garantir que a conexão passa no build!
-        console.log('🎉 Tudo pronto para o deploy.');
+        console.log('🎉 Tudo pronto para o deploy!');
         await client.end();
         process.exit(0);
     } catch (err) {
