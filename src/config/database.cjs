@@ -15,13 +15,12 @@ module.exports = {
     },
   },
   production: {
-    use_env_variable: 'DATABASE_URL', // Opcional, ou mapeamos direto na propriedade url abaixo:
-    url: 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require',
+    url: 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres',
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
-        require: true,
-        rejectUnauthorized: false,
+        require: true, // Garante que o Sequelize tentará fechar conexão segura
+        rejectUnauthorized: false, // Evita o erro de certificado autoassinado
       },
     },
     define: {
