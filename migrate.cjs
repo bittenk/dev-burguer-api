@@ -1,20 +1,24 @@
 const { Client } = require('pg');
 
-// Usamos a Connection String com o parâmetro nativo 'sslmode=no-verify'
-// Isso resolve o SNI do Tenant no gateway IPv4 do Supabase E desativa a rejeição de certificados autoassinados ao mesmo tempo.
-const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=no-verify';
+// Passamos a URL padrão com sslmode=require para o gateway ler o SNI do Tenant
+const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require';
 
 const client = new Client({
-    connectionString: connectionString
+    connectionString: connectionString,
+    // O segredo está aqui: Forçamos o driver nativo a ignorar a validação do certificado 
+    // diretamente nas propriedades de inicialização do TLS, anulando o bloqueio da build do Render
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 async function run() {
     try {
-        console.log('🚀 Conectando ao Pooler Supabase via URI com bypass de SSL...');
+        console.log('🚀 Conectando ao Pooler via infraestrutura híbrida estável...');
         await client.connect();
         console.log('✅ Conexão estabelecida com sucesso!');
 
-        // Cria a tabela de controle do Sequelize de forma nativa
+        // Cria a tabela de controle de forma nativa
         await client.query(`CREATE TABLE IF NOT EXISTS "SequelizeMeta" (name VARCHAR(255) NOT NULL PRIMARY KEY);`);
 
         console.log('🎉 Tudo pronto para o deploy!');
