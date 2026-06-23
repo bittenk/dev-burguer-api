@@ -1,11 +1,11 @@
 const { Client } = require('pg');
 
-// Mantemos a string estável do Pooler IPv4
-const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres';
+// String de conexão original do Pooler com o parâmetro de SSL obrigatório na Query
+const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require';
 
 const client = new Client({
     connectionString: connectionString,
-    // Esta propriedade herda e força o driver a aceitar o certificado autoassinado do Supabase, matando o erro
+    // Força o driver a ignorar certificados autoassinados mantendo o handshake TLS ativo
     ssl: {
         rejectUnauthorized: false
     }
@@ -13,7 +13,7 @@ const client = new Client({
 
 async function run() {
     try {
-        console.log('🚀 Conectando ao Pooler Supabase IPv4 (Ignorando checagem estrita de SSL)...');
+        console.log('🚀 Conectando com Connection String + Configuração Híbrida de SSL...');
         await client.connect();
         console.log('✅ Conexão estabelecida com sucesso!');
 
