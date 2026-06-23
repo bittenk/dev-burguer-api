@@ -19,8 +19,8 @@ module.exports = {
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
-        require: true, // Garante que o Sequelize tentará fechar conexão segura
-        rejectUnauthorized: false, // Evita o erro de certificado autoassinado
+        require: true,
+        rejectUnauthorized: false, // Ignora o erro de self-signed certificate
       },
     },
     define: {

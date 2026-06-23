@@ -1,19 +1,21 @@
 const { Client } = require('pg');
 
-// Removemos o '?sslmode=require' do final da string para o objeto ssl abaixo ter prioridade total
-const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres';
-
 const client = new Client({
-    connectionString: connectionString,
-    // Passando o objeto puro para forçar o driver pg a aceitar o certificado do pooler do Supabase
+    user: 'postgres.blpepzffhxptiyntdhsx', // O tenant completo que o Supabase exige
+    password: 'Erk300163150421.',
+    host: 'aws-0-us-east-1.pooler.supabase.com', // Pooler compatível com IPv4 do Render
+    port: 6543, // Porta estável do Pooler
+    database: 'postgres',
+    // Aqui está o segredo: forçamos o SSL ativo de forma estruturada, forçando o Node a aceitar o certificado do Supabase
     ssl: {
+        require: true,
         rejectUnauthorized: false
     }
 });
 
 async function run() {
     try {
-        console.log('🚀 Conectando ao Pooler Supabase IPv4 com SSL flexível...');
+        console.log('🚀 Conectando ao Pooler via propriedades explícitas (Evitando conflito de string)...');
         await client.connect();
         console.log('✅ Conexão estabelecida com sucesso!');
 
