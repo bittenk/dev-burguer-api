@@ -15,11 +15,11 @@ module.exports = {
     },
   },
   production: {
-    username: 'postgres.blpepzffhxptiyntdhsx', // O usuário com ponto isolado aqui
-    password: 'Erk300163150421.',             // A senha isolada aqui
-    database: 'postgres',
-    host: 'aws-0-us-east-1.pooler.supabase.com', // O host IPv4 isolado aqui
-    port: 5432, // Session mode
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME || 'postgres',
+    host: process.env.DB_HOST,
+    port: 5432,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
