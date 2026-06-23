@@ -1,20 +1,19 @@
 const { Client } = require('pg');
 
-// Usamos a Connection String completa do Pooler (Modo Transação - Porta 6543)
-// Ela já passa o ID do projeto mapeado corretamente para o gateway IPv4 do Supabase
-const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require';
+// Mantemos a string estável do Pooler IPv4
+const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres';
 
 const client = new Client({
     connectionString: connectionString,
+    // Esta propriedade herda e força o driver a aceitar o certificado autoassinado do Supabase, matando o erro
     ssl: {
-        require: true,
         rejectUnauthorized: false
     }
 });
 
 async function run() {
     try {
-        console.log('🚀 Conectando ao Pooler Supabase IPv4 via Connection String...');
+        console.log('🚀 Conectando ao Pooler Supabase IPv4 (Ignorando checagem estrita de SSL)...');
         await client.connect();
         console.log('✅ Conexão estabelecida com sucesso!');
 
