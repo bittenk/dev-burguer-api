@@ -15,7 +15,11 @@ module.exports = {
     },
   },
   production: {
-    url: 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require',
+    username: 'postgres',
+    password: 'Erk300163150421.',
+    database: 'postgres',
+    host: 'db.blpepzffhxptiyntdhsx.supabase.co',
+    port: 5432,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {

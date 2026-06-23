@@ -1,29 +1,26 @@
 const { Client } = require('pg');
 
-// 1. Mantemos a string EXATAMENTE como o Supabase exige para o Pooler IPv4 funcionar
-const connectionString = 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require';
-
-// 2. Criamos o cliente passando a string, mas injetamos o bypass de certificado diretamente no objeto global de configuração do driver
 const client = new Client({
-    connectionString: connectionString,
+    user: 'postgres',
+    password: 'Erk300163150421.',
+    host: 'db.blpepzffhxptiyntdhsx.supabase.co', // Conexão Direta do Supabase (Evita o bug do Pooler)
+    port: 5432, // Porta padrão do PostgreSQL
+    database: 'postgres',
     ssl: {
-        rejectUnauthorized: false
+        rejectUnauthorized: false // Ignora o certificado autoassinado de forma limpa
     }
 });
 
-// Forçamos o parágrafo de segurança no nível do módulo nativo do Node do pg
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 async function run() {
     try {
-        console.log('🚀 Conectando ao Pooler Supabase com bypass duplo de SSL...');
+        console.log('🚀 Conectando diretamente ao banco Supabase (Porta 5432)...');
         await client.connect();
         console.log('✅ CONEXÃO ESTABELECIDA COM SUCESSO!');
 
-        // Cria a tabela do Sequelize de forma nativa
+        // Cria a tabela de metadados do Sequelize se não existir
         await client.query(`CREATE TABLE IF NOT EXISTS "SequelizeMeta" (name VARCHAR(255) NOT NULL PRIMARY KEY);`);
 
-        console.log('🎉 Banco de dados preparado para produção!');
+        console.log('🎉 Tudo pronto para o deploy!');
         await client.end();
         process.exit(0);
     } catch (err) {
