@@ -15,12 +15,16 @@ module.exports = {
     },
   },
   production: {
-    url: process.env.DATABASE_URL, // Vai ler a variável do Supabase salva no Render
+    username: 'postgres.blpepzffhxptiyntdhsx', // O usuário com ponto isolado aqui
+    password: 'Erk300163150421.',             // A senha isolada aqui
+    database: 'postgres',
+    host: 'aws-0-us-east-1.pooler.supabase.com', // O host IPv4 isolado aqui
+    port: 5432, // Session mode
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false, // Exigido pelo Supabase para conexões externas seguras
+        rejectUnauthorized: false,
       },
     },
     define: {
