@@ -15,11 +15,8 @@ module.exports = {
     },
   },
   production: {
-    username: 'postgres',
-    password: 'Erk300163150421.',
-    database: 'postgres',
-    host: 'db.blpepzffhxptiyntdhsx.supabase.co', // Conexão direta
-    port: 5432,
+    use_env_variable: 'DATABASE_URL', // Opcional, ou mapeamos direto na propriedade url abaixo:
+    url: 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require',
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
