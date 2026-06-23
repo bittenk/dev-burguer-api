@@ -19,7 +19,7 @@ module.exports = {
     password: 'Erk300163150421.',
     database: 'postgres',
     host: 'aws-0-us-east-1.pooler.supabase.com',
-    port: 5432,
+    port: 6543, // Porta correta do Pooler para contornar o tenant not found
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
