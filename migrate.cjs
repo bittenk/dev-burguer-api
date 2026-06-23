@@ -1,21 +1,20 @@
 const { Client } = require('pg');
 
 const client = new Client({
-    user: 'postgres.blpepzffhxptiyntdhsx', // O tenant completo que o Supabase exige
+    user: 'postgres', // Limpo, sem ponto e sem o ID do projeto!
     password: 'Erk300163150421.',
-    host: 'aws-0-us-east-1.pooler.supabase.com', // Pooler compatível com IPv4 do Render
-    port: 6543, // Porta estável do Pooler
-    database: 'postgres',
-    // Aqui está o segredo: forçamos o SSL ativo de forma estruturada, forçando o Node a aceitar o certificado do Supabase
+    host: 'aws-0-us-east-1.pooler.supabase.com', // Pooler IPv4
+    port: 6543,
+    database: 'blpepzffhxptiyntdhsx', // O ID do seu projeto entra AQUI como o nome do banco
     ssl: {
         require: true,
-        rejectUnauthorized: false
+        rejectUnauthorized: false // Evita o erro de certificado autoassinado
     }
 });
 
 async function run() {
     try {
-        console.log('🚀 Conectando ao Pooler via propriedades explícitas (Evitando conflito de string)...');
+        console.log('🚀 Conectando ao Pooler com mapeamento alternativo de Tenant...');
         await client.connect();
         console.log('✅ Conexão estabelecida com sucesso!');
 

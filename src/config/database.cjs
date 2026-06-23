@@ -15,12 +15,16 @@ module.exports = {
     },
   },
   production: {
-    url: 'postgresql://postgres.blpepzffhxptiyntdhsx:Erk300163150421.@aws-0-us-east-1.pooler.supabase.com:6543/postgres',
+    username: 'postgres', // Usuário limpo
+    password: 'Erk300163150421.',
+    database: 'blpepzffhxptiyntdhsx', // ID do projeto mapeado como DB para o Pooler resolver
+    host: 'aws-0-us-east-1.pooler.supabase.com',
+    port: 6543,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false, // Ignora o erro de self-signed certificate
+        rejectUnauthorized: false,
       },
     },
     define: {
