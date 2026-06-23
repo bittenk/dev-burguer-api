@@ -20,7 +20,7 @@ module.exports = {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false // Mata o erro de self-signed certificate no Sequelize
+        rejectUnauthorized: false
       }
     },
     define: {
