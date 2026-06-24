@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
-import { Sequelize } from 'sequelize';
+import Sequelize from 'sequelize';
 import Category from '../app/models/Category.js';
 import Product from '../app/models/Product.js';
 import User from '../app/models/User.js';
-import databaseConfig from '../config/database.cjs';
+
+import config from '../config/database.cjs';
 
 const models = [User, Product, Category];
 
@@ -14,17 +15,20 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig);
+    // Se estiver no Render, usa 'production'. Se estiver local, usa 'development'
+    const currentEnv = process.env.NODE_ENV || 'development';
+
+    // Passa o objeto correto dinamicamente
+    this.connection = new Sequelize(config[currentEnv]);
+
     models
       .map((model) => model.init(this.connection))
-      .map(
-        (model) => model.associate && model.associate(this.connection.models),
-      );
+      .map((model) => model.associate && model.associate(this.connection.models));
   }
 
   mongo() {
-    this.mongooseConnection = mongoose.connect(
-      'mongodb://localhost:27017/devburguer',
+    this.mongoConnection = mongoose.connect(
+      'mongodb://mongo:vAtWvbyWAsYwOOfwPAnofGqKbeftmIsM@MONSTERS-STAGING:27017',
     );
   }
 }
